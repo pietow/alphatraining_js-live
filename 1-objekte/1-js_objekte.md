@@ -209,3 +209,116 @@ const settings = {
 // Ist password im JSON-String?
 // Was sagt uns das über JSON-Serialisierung und Sicherheit?
 ```
+
+```
+Schreib aus dem Gedächtnis – kein Nachschlagen:
+
+1. Was macht Object.create()?
+2. Wo landen Methoden wenn ich sie auf einem Prototyp definiere –
+   auf dem Objekt oder auf dem Prototyp?
+3. Was gibt hasOwnProperty() zurück und warum ist das wichtig?
+4. Was ist [[Prototype]]?
+```
+
+**Bisherige objekt definition
+
+````js
+const personProto = {
+  greet() {
+    console.log(`Hi, ich bin ${this.name}`);
+  }
+};
+
+
+function createPerson(name, age) {
+  const p = Object.create(personProto);
+  p.name = name;
+  p.age = age;
+  return p;
+}
+
+const anna = createPerson("Anna", 28);
+````
+
+- Prototypen seperat definieren
+- Properties manuell zuweisen
+
+> „ Das ist fehleranfällig und unübersichtlich bei komplexen Strukturen. JavaScript hat dafür eine sauberere Syntax bekommen: `class`."
+
+
+
+
+### Von Factory Function zu class 
+
+Ziel:
+
+```
+Wir wollen viele Objekte des gleichen Typs erstellen –
+mit eigenem Zustand, aber geteilten Methoden.
+```
+
+## Stufe 1 — Factory Function
+
+## Stufe 2 — Constructor Function
+
+
+Factory Function     Constructor Function
+──────────────────   ────────────────────
+Object.create()      new übernimmt das
+explizites return    new übernimmt das
+range.methods        Range.prototype (Standard)
+kein new nötig       new PFLICHT – sonst kaputt
+
+## Stufe 3 — class
+```
+
+                  Stufe 1        Stufe 2         Stufe 3
+                  Factory        Constructor      class
+──────────────────────────────────────────────────────────
+Prototyp          range.methods  Range.prototype  Range.prototype
+Objekt erstellen  Object.create  new              new
+Zustand           manuell        this.x = x       this.x = x
+Rückgabe          explizit       automatisch      automatisch
+Lesbarkeit        mittel         niedrig           hoch
+Transparenz       hoch           mittel            niedrig
+```
+
+## Bemerkung - Crockfords zu Class in javascript
+
+```
+"class is the most misused feature in JavaScript.
+ It makes JS look like Java. It hides the true
+ nature of the language: prototypal inheritance."
+                              — Douglas Crockford
+```
+
+### Aufgabe
+
+```js
+// Schreibe eine class "Stack" – ein klassischer Stapelspeicher.
+// (Last In, First Out – wie ein Stapel Teller)
+
+// Die class soll folgendes können:
+
+// push(item)   → legt ein Element oben auf den Stapel
+// pop()        → entfernt das oberste Element und gibt es zurück
+//                gibt undefined zurück wenn der Stapel leer ist
+// peek()       → gibt das oberste Element zurück OHNE es zu entfernen
+// isEmpty()    → gibt true zurück wenn der Stapel leer ist
+// get size()   → gibt die Anzahl der Elemente zurück (als getter)
+
+// Teste:
+const s = new Stack();
+s.push("a");
+s.push("b");
+s.push("c");
+console.log(s.peek());   // "c"
+console.log(s.size);     // 3
+console.log(s.pop());    // "c"
+console.log(s.size);     // 2
+console.log(s.isEmpty()); // false
+
+// Bonusfrage:
+// Wo leben push(), pop(), peek() – auf der Instanz oder auf dem Prototyp?
+// Beweis mit hasOwnProperty()
+```
