@@ -123,3 +123,89 @@ console.log(child)
 //   Liegt describe() auf bike oder auf vehicleProto?
 //   Beweis mit hasOwnProperty()
 ```
+
+```
+bike
+  └── brand: "Trek"       ← eigene Property
+  └── speed: 25           ← eigene Property
+  └── [[Prototype]] ──→  vehicleProto
+                            └── describe()   ← geteilt
+                            └── accelerate() ← geteilt
+```
+
+### 1. Objekt aufzählen
+
+````js
+const person = {
+  name: "Anna",
+  age: 28
+};
+
+console.log(Objects.keys(person)) // [name, age]
+console.log(Objects.values(person)) // ["Anna", 28]
+console.log(Objects.entries(person)) // [["name","Anna"], ["age",28]]
+
+
+for (const key in person) {
+    console.log(keys)
+}
+````
+
+### 2. Objekte erweitern & zusammenführen
+
+```js
+const base = { name: "Anna", age: 28 };
+const extra = { city: "Wien", job: "Dev" };
+
+
+const combined = Object.assign({}, base, extra)
+// { name: "Anna", age: 28, city: "Wien", job: "Dev" }
+const combined2 = {...base, ...extra}
+// { name: "Anna", age: 28, city: "Wien", job: "Dev" }
+```
+
+### 3. Objekte serialisieren
+
+```js
+const person = {
+  name: "Anna",
+  age: 28,
+  greet() { console.log("Hi"); }
+};
+
+// Objekt → String (z.B. für API, localStorage)
+
+const json = JSON.stringify(person)
+console.log(json)
+
+
+## Mini-Übung 3 (15min)
+
+```js
+// Gegeben:
+const user = {
+  username: "anna_w",
+  email: "anna@example.com",
+  role: "admin",
+  password: "secret123"
+};
+
+const settings = {
+  theme: "dark",
+  language: "de"
+};
+
+// 1. Gib alle Keys von user aus
+// 2. Gib alle Values von user aus
+// 3. Erstelle ein neues Objekt "profile" das
+//    user und settings zusammenführt –
+//    OHNE password (das soll nicht im Profil landen)
+// 4. Serialisiere profile als JSON-String
+// 5. Parse den JSON-String zurück zu einem Objekt
+//    und überprüfe ob theme noch vorhanden ist
+
+// Bonusfrage:
+// Was passiert wenn du user direkt serialisierst?
+// Ist password im JSON-String?
+// Was sagt uns das über JSON-Serialisierung und Sicherheit?
+```

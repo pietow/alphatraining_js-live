@@ -33,3 +33,8 @@ const job_title2 = person?.job?.title
 
 console.log('job: ', job_title2)
 
+
+delete person.name
+
+console.log(person)
+
