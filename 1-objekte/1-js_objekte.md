@@ -90,13 +90,15 @@ child.type = "child";
 
 const grandchild = Object.create(child);
 
-console.log(grandchild.type);         // ?
-console.log(grandchild.describe());   // ?
+console.log(grandchild.type);         // child
+console.log(grandchild.describe());   // Ich bin: child
 
+console.log(child)
 delete child.type;
+console.log(child)
 
-console.log(grandchild.type);         // ?
-console.log(grandchild.describe());   // ?
+// console.log(grandchild.type);         // ?
+// console.log(grandchild.describe());   // ?
 ```
 
 ```js
