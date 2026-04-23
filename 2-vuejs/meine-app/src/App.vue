@@ -1,23 +1,47 @@
 <template>
-  <input v-modal="newTodo" placeholder="Neues Todo">
+  <HelloWorld name="Bob" @geklickt="onGeklickt" />
+  <p>{{ meldung }}</p>
+
+  <input v-model="newTodo" placeholder="Neues Todo" />
   <button @click="addTodo">Hinzufügen</button>
-  <p>offen: {{ openCount}}</p>
+  <p>offen: {{ openCount }}</p>
   <ul>
-    <ToDoItem/>
+    <TodoItem
+      v-for="item in todo"
+      :key="item.id"
+      :todo="item"
+      @toggle="toggleTodo"
+    />
   </ul>
 </template>
 
-<script setup lang="ts">
-import TodoItem from './components/TodoItem.vue';
-import { ref, reactive} from 'vue'
+<script setup>
+import HelloWorld from "./components/HelloWorld.vue";
+import TodoItem from "./components/TodoItem.vue";
+import { ref, reactive, computed } from "vue";
 
-const newTodo = ref('')
-const todo = reactive([])
-const openCount = reactive([{id:2, text: 'aufgabe1', done:false}])
+const meldung = ref("");
+
+function onGeklickt() {
+  meldung.value = "Button geklickt";
+}
+
+
+const newTodo = ref('');
+const todo = reactive([]);
+
+let nextId = 1;
+
+const openCount = computed(() => todo.filter((t) => !t.done).length);
 
 function addTodo() {
-  // if (newTodo.value.trim() !== "") return
-  todo.push({ id: 1, text: newTodo.value, done: false})
-  newTodo.value = ''
+  if (newTodo.value.trim() === '') return;
+  todo.push({ id: nextId++, text: newTodo.value, done: false });
+  newTodo.value = '';
+}
+
+function toggleTodo(id) {
+  const item = todo.find((t) => t.id === id)
+  if (item) item.done = !item.done
 }
 </script>

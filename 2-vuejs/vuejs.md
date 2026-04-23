@@ -189,14 +189,27 @@ meine-app/
 | Alles in einer Datei | Jede Komponente eigene `.vue`-Datei |
 | Kein Terminal nötig: z.b VS code live server extension | `npm run dev` startet Entwicklungsserver |
 
-### Components
-
 ### computed() letet werte ab
 
-### Mini-Übung
+#### Mini-Übung
 
 **Aufgabe:**
 
 > Erweitert die Todo-Liste:
 > - `computed()` für die Anzahl **erledigter** Todos
 > - Zeigt beide Zahlen an: offen + erledigt
+
+### Components
+#### Mini-Übung
+
+**Aufgabe:**
+
+> Erstellt eine neue Komponente `TodoCount.vue`:
+> - Bekommt `openCount` und `doneCount` als Props
+> - Zeigt beide Werte an
+> - Bindet sie in `App.vue` ein
+
+
+
+
+
