@@ -209,7 +209,98 @@ meine-app/
 > - Zeigt beide Werte an
 > - Bindet sie in `App.vue` ein
 
+> Daten fließen von Eltern zu Kind über props
+> Ereignisse fließen von Kind zu Eltern über emits
 
+### Route: vue-router einrichten 
 
+#### Installation
 
+```bash
+npm install vue-router
+```
+
+#### Drei Views anlegen
+
+```vue
+<!-- src/views/HomeView.vue -->
+<template>
+  <h1>Willkommen</h1>
+  <p>Das ist unsere SPA.</p>
+</template>
+```
+
+```vue
+<!-- src/views/TodoView.vue -->
+<template>
+  <h1>Todos</h1>
+  <!-- Todo-App aus Block 3 hier einfügen -->
+</template>
+```
+
+```vue
+<!-- src/views/AboutView.vue -->
+<template>
+  <h1>Über diese App</h1>
+  <p>Gebaut mit Vue 3 und vue-router.</p>
+</template>
+```
+
+#### Router konfigurieren
+
+```js
+// src/router/index.js
+import { createRouter, createWebHashHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import TodoView from '../views/TodoView.vue'
+import AboutView from '../views/AboutView.vue'
+
+const routes = [
+  { path: '/',       component: HomeView  },
+  { path: '/todos',  component: TodoView  },
+  { path: '/about',  component: AboutView }
+]
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes
+})
+
+export default router
+```
+
+#### Router in main.js einbinden
+
+```js
+// src/main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+
+createApp(App).use(router).mount('#app')
+```
+
+#### Navigation in App.vue
+
+```vue
+<!-- src/App.vue -->
+<template>
+  <nav>
+    <RouterLink to="/">Home</RouterLink> |
+    <RouterLink to="/todos">Todos</RouterLink> |
+    <RouterLink to="/about">About</RouterLink>
+  </nav>
+
+  <RouterView />
+</template>
+```
+
+### Mini-Übung Routing
+
+**Aufgabe:**
+
+> Fügt eine vierte Route `/impressum` hinzu:
+> - Neue Datei `ImpressumView.vue` mit einem kurzen Text
+> - Route registrieren
+> - Link in der Navigation ergänzen
 
